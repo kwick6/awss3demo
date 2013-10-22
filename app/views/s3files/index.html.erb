@@ -1,0 +1,25 @@
+<section id="sidebar">
+    <h2>S3 Content</h2>
+    <section id="preview">
+    </section>
+
+
+    <h2>Add New Content</h2>
+    <%= form_tag upload_path, :method => "post", :multipart => true do %>
+        <%= file_field_tag "newfile" %><br />
+        <%= submit_tag "Upload" %>
+    <% end %>
+</section>
+<section id="main">
+    <h2>Download/Delete Content</h2>
+    <table>
+    <% @s3files.each do |s3file| %>
+        <tr>
+            <td><%= s3file.key %></td>
+            <td><%= link_to "Content Uploaded", download_url_for(s3file.key) %></td>
+            <td><%= link_to "Delete",  "s3files/delete/?s3file=" + s3file.key, :confirm => 'Are you sure you want to delete ' + s3file.key + '?' %></td>
+        </tr>
+    <% end %>
+    </table>
+</section>
+<div class="clear"></div>
